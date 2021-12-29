@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn  
+  DeleteDateColumn,
 } from 'typeorm';
+
+import { Exclude, instanceToPlain } from 'class-transformer';
 
 import { compare } from 'bcrypt';
 
@@ -18,6 +20,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @CreateDateColumn()
@@ -28,6 +31,10 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  toJSON() {
+    return instanceToPlain(this);
+  }
 
   public validatePassword(password) {
     return compare(password, this.password);

@@ -11,11 +11,13 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    const hello = await this.OauthServerService.checkAuthenticate(
+    const userResult = await this.OauthServerService.checkAuthenticate(
       request,
       response,
     );
-    request.user = hello.user;
+
+    console.log(userResult);
+    request.user = userResult.user;
     return Promise.resolve(true);
   }
 }

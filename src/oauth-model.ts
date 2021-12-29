@@ -22,7 +22,7 @@ const getAccessToken = async (accessToken) => {
       accessTokenExpiresAt: expires,
       scope: scope,
       client: client,
-      user: user,
+      user: user.toJSON(),
     };
   } catch (e) {
     return false;
@@ -112,7 +112,7 @@ const getRefreshToken = async (refreshToken) => {
     refreshTokenExpiresAt: refreshTokenResult.expires,
     scope: refreshTokenResult.scope,
     client: refreshTokenResult.client,
-    user: refreshTokenResult.user,
+    user: refreshTokenResult.user.toJSON(),
   };
 };
 
